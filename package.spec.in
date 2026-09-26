@@ -1,0 +1,45 @@
+Name:           @NAME@
+Version:        @VERSION@
+Release:        1%{?dist}
+Summary:        A simple OpenGL shader utility library
+
+License:        @LICENSE@
+URL:            @URL@
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+BuildRequires:  meson
+BuildRequires:  gcc
+BuildRequires:  pkgconfig(gl)
+
+%description
+ShaderHelper is a lightweight library for compiling OpenGL shaders.
+It provides a simple interface to compile shader source code and
+handle compilation errors, making it easier to integrate shader
+compilation into OpenGL applications.
+
+%package devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description devel
+This package contains the header files and development libraries
+needed to build applications using %{name}.
+
+%prep
+%autosetup -n %{name}-%{version}
+
+%build
+%meson
+%meson_build
+
+%install
+%meson_install
+
+%files
+%license LICENSE
+%doc README.md
+%{_libdir}/libshaderhelper.so
+
+%files devel
+%{_includedir}/shaderhelper.h
+%{_libdir}/pkgconfig/shaderhelper.pc
