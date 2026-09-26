@@ -44,3 +44,5 @@ spec_cfgfile = configure_file(
   output: 'package.spec',
   configuration: rpmspec_config
 )
+
+install_headers('include/shaderhelper.h')
