@@ -13,10 +13,19 @@ srcs = [
 
 header_dir = include_directories('include')
 
+deps = [dependency('epoxy')]
 self_lib = library('shaderhelper', srcs, 
   include_directories : header_dir,
-  dependencies : [dependency('epoxy')],
-  install : true,
+  dependencies : deps,
+  install: not meson.is_subproject(),
+  version: meson.version(),
+  build_by_default: not meson.is_subproject()
+)
+shaderhelper_dep = declare_dependency(
+  link_with : self_lib,
+  dependencies: deps,
+  include_directories : header_dir,
+  version: meson.version(),
 )
 
 pkg = import('pkgconfig')
