@@ -11,6 +11,10 @@ srcs = [
   'main.c'
 ]
 
+if meson.is_subproject()
+  set_option('default_library', 'static')
+endif
+
 header_dir = include_directories('include')
 
 deps = [dependency('epoxy')]
